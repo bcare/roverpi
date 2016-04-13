@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=`hg tags | cut -f 1 -d ' ' | tail -n 1`
+VERSION=`git describe --abbrev=0`
 TIMESTAMP=`date +%Y%m%d`
 FILESUFFIX="${VERSION}-${TIMESTAMP}"
 
