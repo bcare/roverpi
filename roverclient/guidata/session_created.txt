@@ -1,0 +1,14 @@
+SESSION_CONNECTED =
+{
+	## frame :
+	self =
+	{
+		bindings = (["wx.EVT_IDLE", "None"]);
+	}
+	
+	button_connection =
+	{
+		bindings = (["wx.EVT_BUTTON", "h_on_disconnect"]);
+		methods_calls = (["SetLabel", "Disconnect"]);
+	}
+}

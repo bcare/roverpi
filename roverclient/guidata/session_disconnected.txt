@@ -1,0 +1,63 @@
+SESSION_DISCONNECTED =
+{
+	######## session disconnected #######
+	### config is loaded, logging is enabled
+	### Allow connection only for now.
+
+	## frame : disable the EVT_IDLE handler:
+	self =
+	{
+		bindings = (["wx.EVT_IDLE", "None"]);
+	}
+
+	### Connection 
+
+	button_connection =
+	{
+		bindings = (["wx.EVT_BUTTON", "h_on_connect"]);
+		methods_calls = (["Enable"],["SetLabel","Connect"]);
+	}
+
+	label_connection_status = 
+	{
+		methods_calls = (["SetLabel","Disconnected"]);
+	}
+
+	textctrl_connection_host =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	textctrl_connection_port_cmd =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	textctrl_connection_video_url =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	button_take_control =
+	{
+		methods_calls = (["Disable"]);
+	}
+
+	
+	### Console
+	textctrl_console =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	button_send_command =
+	{
+		methods_calls = (["Disable"]);
+	}
+
+	button_clear_command =
+	{
+		methods_calls = (["Disable"]);
+	}
+
+}

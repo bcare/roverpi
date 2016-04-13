@@ -1,0 +1,93 @@
+SESSION_CONNECTED =
+{
+	###### session connected ######
+
+	## frame : enable the EVT_IDLE event handler :
+	self =
+	{
+		bindings = (["wx.EVT_IDLE","h_on_idle"])
+	}
+
+	## change the connection button into disconnect
+	
+	button_connection =
+	{
+		bindings = (["wx.EVT_BUTTON", "h_on_disconnect"]);
+		methods_calls = (["SetLabel" , "Disconnect"]);
+	}
+
+	label_connection_status =
+	{
+		methods_calls = (["SetLabel","Connected"]);
+	}
+
+	button_take_control = 
+	{
+		bindings = (["wx.EVT_BUTTON", "h_on_take_control"]);
+		methods_calls = (["SetLabel", "Take control"],["Enable"]);
+	}
+	
+	####### Console 
+
+	button_send_command = 
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	button_clear_command = 
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	####### Activate special controls
+	
+	button_headlights =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	slider_speed =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	###### audio
+	
+	listctrl_audio_files =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	button_fetch_audio_files =
+	{
+		methods_calls = (["Enable"]);
+	}
+	
+	button_play_audio_file =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	####### TTS
+
+	textctrl_tts =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	button_tts_send =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	button_tts_clear =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	
+
+
+	
+
+}

@@ -1,0 +1,12 @@
+CONTROLS_ON =
+{
+
+	### enable drive input ###
+	
+	button_take_control = 
+	{
+		bindings = (["wx.EVT_BUTTON", "h_on_release_control"]);
+		methods_calls = (["SetLabel", "Release control"],["Enable"]);
+	}
+	
+}

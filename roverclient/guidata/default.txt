@@ -1,0 +1,146 @@
+INITIAL =
+{
+	##### INITIAL STATE #####
+	# * Bind the buttons that will have only one binding through
+	# the whole app execution (i.e. headlights, etc)
+	# * Disable everything except the load config button.
+
+	button_load_config =
+	{
+		bindings = (["wx.EVT_BUTTON", "h_on_load_config"]);
+		methods_calls = (["SetLabel", "Load configuration file"]);
+	};
+
+	### Connection widgets
+	
+	textctrl_host =
+	{
+		methods_calls = (["Disable"]);
+	}
+
+	textctrl_port_cmd =
+	{
+		methods_calls = (["Disable"]);
+	}
+
+	textctrl_port_video =
+	{
+		methods_calls = (["Disable"]);
+	}
+
+	button_connection =
+	{
+		methods_calls = (["Disable"]);
+	}		
+	button_videofeed =
+	{
+		methods_calls = (["Disable"]);
+	}		
+
+	button_take_control =
+	{
+		methods_calls = (["Disable"]);
+	}		
+
+	### Drive widgets 
+
+	button_headlights = 
+	{
+		methods_calls = (["Disable"]);
+	}	
+	
+	slider_speed =
+	{
+		methods_calls = (["Disable"]);
+	}	
+
+	### Audio widgets 
+
+	listctrl_audio_files = 
+	{
+		methods_calls = (["Disable"]);
+	}	
+
+	button_fetch_audio_files =
+	{
+		methods_calls = (["Disable"]);
+	}	
+
+	button_play_audio_file =
+	{
+		methods_calls = (["Disable"]);
+	}	
+
+	textctrl_tts =
+	{
+		methods_calls = (["Disable"]);
+	}	
+
+	button_tts_send =
+	{
+		methods_calls = (["Disable"]);
+	}	
+
+	button_clear_tts =
+	{
+		methods_calls = (["Disable"]);
+	}	
+	
+
+	### Console widgets
+	
+	textctrl_console = 
+	{
+		methods_calls = (["Disable"]);
+	}
+
+	button_send_command = 
+	{
+		methods_calls = (["Disable"]);
+	}
+
+	button_clear_command = 
+	{
+		methods_calls = (["Disable"]);
+	}
+
+		
+}
+
+
+CONFIG_LOADED =
+{
+	### Connection 
+	button_connection =
+	{
+		bindings = (["wx.EVT_BUTTON", "h_on_connection"]);
+		methods_calls = (["Enable"]);
+	}	
+
+	textctrl_host =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	textctrl_port_cmd =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	textctrl_port_video =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	
+	### Console
+	textctrl_console =
+	{
+		methods_calls = (["Enable"]);
+	}
+
+	button_send_command =
+	{
+	
+	}
+}

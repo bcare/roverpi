@@ -1,0 +1,11 @@
+VIDEO_OFF =
+{
+
+
+		### Video : 
+		button_videofeed =
+		{
+				bindings = (["wx.EVT_BUTTON","h_on_enable_videofeed"]);
+				methods_calls = (["Enable"],["SetLabel","Enable video"]);
+		}
+}
