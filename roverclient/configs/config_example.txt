@@ -1,0 +1,43 @@
+######################################################
+### Roverpi rvclient.py configuration file example
+######################################################
+
+
+general =
+{
+	logfile = "log.txt";
+	log_overwrite = True;
+}
+
+network =
+{
+		address = "rover.domain.com" ;
+		port_command = 12345 ;
+		video_url = "http://rovercam.domain.com/" ;
+
+}
+
+
+keymap =
+{
+	drive =
+	{
+		NUMPAD8 = "north";
+
+		NUMPAD9 = "north_east";
+
+		NUMPAD6 = "east";
+
+		NUMPAD3 = "south_east";
+
+		NUMPAD2 = "south";
+
+		NUMPAD1 = "south_west";
+
+		NUMPAD4 = "west";
+
+		NUMPAD7 = "north_west";
+
+		NUMPAD5 = "stop";
+	}
+}
