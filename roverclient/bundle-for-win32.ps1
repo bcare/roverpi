@@ -7,7 +7,7 @@ pyinstaller --onefile --windowed rvclient-win32-standalone.spec
 
 $currentwd= (Convert-Path .)
 $currentdate = (Get-Date -format yyyyMMdd)
-$rvversion = (git describe)
+$rvversion = (git describe --abbrev=0)
 $suffix = "$rvversion-$currentdate"
 
 $distpath = (Join-Path $currentwd "dist")
