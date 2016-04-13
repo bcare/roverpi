@@ -42,7 +42,7 @@ if hasattr(sys, 'frozen'):
 CONFIGS_PATH = os.path.join(BASE_FOLDER,'configs')
 GUIDATA_PATH = os.path.join(BASE_FOLDER,'guidata')
 
-DEFAULT_CONFIG_FILE = os.path.join(CONFIGS_PATH, 'config_remote.txt')
+DEFAULT_CONFIG_FILE = os.path.join(CONFIGS_PATH, 'config_example.txt')
 
 WIDGET_STATES_FILES = ["initial.txt",\
                        "session_disconnected.txt",\
