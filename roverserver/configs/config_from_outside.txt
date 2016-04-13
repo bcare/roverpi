@@ -1,0 +1,80 @@
+## Network settings :
+
+network =
+{
+	address = "192.168.0.18" ;
+	port = 63000 ;
+}
+
+
+## Internals :
+
+internals =
+{
+
+}
+
+
+## Drive settings :
+
+drive = 
+{
+	## define the available speeds presets :
+	speeds = (10,20,50,100);
+	
+	vectors =
+	{
+		## DEFAULTS :
+		## works with :
+		## CH1 -> Forward right
+		## CH2 -> Forward Left
+		## CH3 -> Rear Right
+		## CH4 -> Rear Left
+		## direction pins : the rear trains are inverted (0 -> forward, 1 -> backward)
+
+		## ForLeft Train:
+		## DIR = 1 -> Forward | DIR = 1 -> Backward
+
+		## ForRight Train:
+		## DIR = 1 -> Forward | DIR = 0 -> Backward
+
+		## RearLeft Train:
+		## DIR = 0 -> Forward | DIR = 1 -> backward 
+
+		## RearRight Train:
+		## DIR = 0 -> forward | DIR = 1 -> backward
+
+
+		## Drive vector : (PWM_LEFT, PWM_RIGHT, DIR_ForLeft, DIR_ForRight, DIR_RearLeft, DIR_RearRight)	
+
+        #north = (1.0,1.0,1,1,0,0) ;
+        #north_east = (0.8,0.2,1,1,0,0) ;
+        #east = (1.0,1.0,1,0,0,1) ;
+        south_east = (0.5,0.2,0,0,1,1) ;
+        #south = (1.0,1.0,0,0,1,1) ;
+        #south_west = (0.2,0.8,0,0,1,1) ;
+        #west = (1.0,1.0,0,1,1,0) ;
+        north_west = (0.2,0.5,1,1,0,0) ;
+        #full_stop = (0,0,0,0,0,0) ;
+
+	}
+}
+
+## GPIO Maps :
+
+gpio = {
+
+	 pwm_freq = 1000 ; #PWM frequency in Hz
+	 
+	 pin_pwm_left = 20;
+	 pin_pwm_right = 21;
+	 pin_direction_left_forward = 6;
+	 pin_direction_right_forward = 13;
+	 pin_direction_left_rear = 19 ;
+	 pin_direction_right_rear = 26;
+	 
+	 pin_headlights = 16 ;
+ }
+
+
+
