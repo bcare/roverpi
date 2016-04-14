@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation &mdash; rovepri-doc 0.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="rovepri-doc 0.2.1 documentation" href="index.html" />
+    <link rel="next" title="Usage : On the Rover" href="usage-rover.html" />
+    <link rel="prev" title="Welcome to rovepri-doc’s documentation!" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="usage-rover.html" title="Usage : On the Rover"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to rovepri-doc’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">rovepri-doc 0.2.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation-on-the-rover">
+<span id="installation-rover-label"></span><h2>Installation on the rover<a class="headerlink" href="#installation-on-the-rover" title="Permalink to this headline">¶</a></h2>
+<p>Roverpi&#8217;s rover-side code requires a few dependencies. There is no compiled
+executable for the server, to run the code just execute the main script with a
+python 2.7 interpreter.</p>
+<div class="section" id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="hardware-and-os">
+<h4>Hardware and OS<a class="headerlink" href="#hardware-and-os" title="Permalink to this headline">¶</a></h4>
+<p>roverpi was developped and tested on the Raspberry Pi 3, but should work on any
+Raspberry Pi SoC version (if you tried it and it failed, <a class="reference external" href="mailto:bertrand&#46;care&#37;&#52;&#48;gmail&#46;com">please let me know</a>). If you want video streaming, you may use
+the Raspberry Pi camera module, or, provided you can set it up on your system, a
+USB webcam. See <a class="reference internal" href="#installation-rover-video-label"><span class="std std-ref">Video support</span></a> for more information.</p>
+<p>roverpi was developped and tested on raspbian Jessie. If you tried it on another
+OS on the raspberry Pi, please let me know if it works.</p>
+</div>
+<div class="section" id="python-packages">
+<h4>Python packages<a class="headerlink" href="#python-packages" title="Permalink to this headline">¶</a></h4>
+<p>Install the following packages :</p>
+<ul class="simple">
+<li><a class="reference external" href="http://wiringpi.com/download-and-install/">wiringpi (system package)</a> (available with <code class="docutils literal"><span class="pre">apt-get</span></code>)</li>
+<li><a class="reference external" href="http://wiringpi.com/download-and-install/">wiringPi2 (python package)</a> (available with <code class="docutils literal"><span class="pre">pip</span></code>)</li>
+<li><a class="reference external" href="https://pythonhosted.org/RPIO/#installation">RPi.GPIO</a> (available with <code class="docutils literal"><span class="pre">pip</span></code> or <code class="docutils literal"><span class="pre">apt-get</span></code>)</li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/pylibconfig2/0.2.5">pylibconfig2</a> (available with <code class="docutils literal"><span class="pre">pip</span></code>)</li>
+</ul>
+</div>
+<div class="section" id="video-support">
+<span id="installation-rover-video-label"></span><h4>Video support<a class="headerlink" href="#video-support" title="Permalink to this headline">¶</a></h4>
+<p>The rover-side code does not feature built-in video streaming (and works
+perfectly without any video hardware). You can however setup a third-party
+software to enable streaming from the raspberry pi and serve the video stream
+through an HTTP(S) page, for example with eLinux&#8217;s excellent
+<a class="reference external" href="http://elinux.org/RPi-Cam-Web-Interface">RPi-WebCam-Interface</a> The
+client-side code is able to browse the web, in order to fetch the video feed you
+can simply specifiy the URL of the streaming page in the client and roll with
+it.</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Get the source from github :</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$&gt; git clone https://github.com/bcare/roverpi.git
+</pre></div>
+</div>
+<p>You can also download a <a class="reference external" href="https://github.com/bcare/roverpi/archive/master.zip">zip archive of the repository</a>.</p>
+<p>The rover-side code is contained in the folders <code class="docutils literal"><span class="pre">roverserver</span></code>,
+<code class="docutils literal"><span class="pre">rovercommons</span></code> and <code class="docutils literal"><span class="pre">tools</span></code>. You may delete the <code class="docutils literal"><span class="pre">roverclient</span></code> folder on the
+rover if you wish.</p>
+<p>There is nothing specific to do once you fetched the sources and installed the
+dependencies. You should create and edit a configuration file according to your
+raspberry pi setup (for example which GPIO pins you want to use) and your
+preferences (see <a href="#id2"><span class="problematic" id="id3">:ref:`config-rover-label`_</span></a> and <a href="#id4"><span class="problematic" id="id5">:ref:`usage-rover-label`_</span></a>).</p>
+<p>Your system user on the raspberry pi might not have the permissions to use the
+GPIO Pins. There is a bash script that automatically reads a configuration file
+and calls wiringpi&#8217;s <code class="docutils literal"><span class="pre">gpio</span> <span class="pre">export</span></code> command to make the pins available :</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$&gt; bash roverpi/tools/export_required_pins &lt;path_to_config_file&gt;
+</pre></div>
+</div>
+<p>You can then launch the server that will receive the commands from the client
+using :</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$&gt; <span class="nb">cd</span> roverpi/roverserver $&gt; python rvserver.py &lt;path_to_config_file&gt;
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="usage-rover.html"><span class="doc">Usage : On the Rover</span></a> .</p>
+</div>
+</div>
+<div class="section" id="installation-of-the-client">
+<h2>Installation of the client<a class="headerlink" href="#installation-of-the-client" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="standalone-executable">
+<h3>Standalone executable<a class="headerlink" href="#standalone-executable" title="Permalink to this headline">¶</a></h3>
+<p>Standalone executable requiring no installation at all are available for
+GNU/Linux and Windows (32btit, but also works on 64bit systems). Just download
+the executable and launch it, that&#8217;s it, it already includes all the
+dependencies and does not require any decompressing (it doesn&#8217;t even require
+that python is installed on your system).</p>
+<p>Check the download page :</p>
+</div>
+<div class="section" id="from-the-sources">
+<h3>From the sources<a class="headerlink" href="#from-the-sources" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h4>Prerequisites<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>In order to run the client-side code, you will require the following
+dependencies</p>
+<div class="section" id="system-packages">
+<h5>System packages<a class="headerlink" href="#system-packages" title="Permalink to this headline">¶</a></h5>
+<p>Install python 2.7 if you don&#8217;t have it already (on windows select the 32bit
+version).</p>
+</div>
+<div class="section" id="id7">
+<h5>Python packages<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h5>
+<p>The client requires the following python packages :</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">wxPython</span></code> 3.0.2 or greater (GTK flavor on GNU/Linux)</li>
+<li><code class="docutils literal"><span class="pre">pyGTK</span></code> 2.24 or greater</li>
+<li><code class="docutils literal"><span class="pre">pylibconfig2</span></code></li>
+</ul>
+<p>Make sure to get <a class="reference external" href="http://wxpython.org/download.php">wxpython 3.0.2</a> or
+greater. On windows, make sure to install the 32bit version <code class="docutils literal"><span class="pre">win32-py27</span></code>. Most
+GNU/Linux distributions should include <code class="docutils literal"><span class="pre">wxpython</span></code> in their main package
+manager, you&#8217;ll need <code class="docutils literal"><span class="pre">wxpython</span></code> with GTK widgets. For instance on a
+Debian/Ubuntu-like, install the package <code class="docutils literal"><span class="pre">python-wxgtk3.0</span></code> or greater.</p>
+<p>You will need <code class="docutils literal"><span class="pre">pyGTK</span> <span class="pre">2.24</span></code>. There are <a class="reference external" href="http://www.pygtk.org/downloads.html">All-in-One installers available for
+windows</a>, pick the 2.24 (or greater)
+32bit for Python 2.7 version). On GNU/Linux, <code class="docutils literal"><span class="pre">pygtk</span></code> is available through most
+distribution&#8217;s package managers, for instance on a Debian/Ubuntu-like with the
+package <code class="docutils literal"><span class="pre">python-pygtk2</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">pylibconfig2</span></code> is available using <code class="docutils literal"><span class="pre">pip</span></code> both on windows and GNU/Linux.</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h4>Installation<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>Get the source from github :</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$&gt; git clone https://github.com/bcare/roverpi.git
+</pre></div>
+</div>
+<p>You can also download a <a class="reference external" href="https://github.com/bcare/roverpi/archive/master.zip">zip archive of the repository</a>.</p>
+<p>The client-side code is contained in the folders <code class="docutils literal"><span class="pre">roverclient</span></code> and
+<code class="docutils literal"><span class="pre">rovercommons</span></code>. You may delete the other folders on your client PC if you
+wish.</p>
+<p>There is nothing else to do, just execute the file <code class="docutils literal"><span class="pre">roverclient/rvclient.py</span></code>
+with python (you may provide the path to a configuration file as an argument,
+but it is not required,  the client loads an example configuration by default) :</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>$&gt; <span class="nb">cd</span> roverpi/roverclient $&gt; python rvclient.py <span class="o">[</span>&lt;path_to_config_file&gt;<span class="o">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>See <a href="#id10"><span class="problematic" id="id11">:ref:`usage-client-label`_</span></a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#installation-on-the-rover">Installation on the rover</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li><a class="reference internal" href="#hardware-and-os">Hardware and OS</a></li>
+<li><a class="reference internal" href="#python-packages">Python packages</a></li>
+<li><a class="reference internal" href="#video-support">Video support</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">Installation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installation-of-the-client">Installation of the client</a><ul>
+<li><a class="reference internal" href="#standalone-executable">Standalone executable</a></li>
+<li><a class="reference internal" href="#from-the-sources">From the sources</a><ul>
+<li><a class="reference internal" href="#id6">Prerequisites</a><ul>
+<li><a class="reference internal" href="#system-packages">System packages</a></li>
+<li><a class="reference internal" href="#id7">Python packages</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">Installation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to rovepri-doc&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usage-rover.html"
+                        title="next chapter">Usage : On the Rover</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/installation.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="usage-rover.html" title="Usage : On the Rover"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to rovepri-doc’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">rovepri-doc 0.2.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Bertrand Caré.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>
