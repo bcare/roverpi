@@ -16,7 +16,7 @@ import wx.html2
 
 from time import sleep
 
-from multiprocessing import JoinableQueue, Queue, Event, Lock, Manager, Process, Pipe
+from multiprocessing import JoinableQueue, Queue, Event, Lock, Manager, Pipe
 
 import pylibconfig2 as pycfg
 
@@ -52,7 +52,8 @@ WIDGET_STATES_FILES = ["initial.txt",\
                        "video_off.txt"]
 
 
-FETCH_RX_TIMER_PERIOD_MS = 50
+FETCH_RX_TIMER_PERIOD_MS = 200
+TIMER_PERIOD_DRIVE_INPUT_MS = 80
 
 KEYMAP_DEFAULT = {"drive":{\
                            wx.WXK_NUMPAD8 : "north",\
@@ -138,7 +139,6 @@ class RoverFrame(wx.Frame):
 
                 self.timer_drive_input = wx.Timer(self, wx.ID_ANY)
                 self.timer_fetch_rx=wx.Timer(self, wx.ID_ANY)
-                self.timer_video = wx.Timer(self, wx.ID_ANY)
 
                 ##### wxGlade init ######
 
@@ -338,10 +338,11 @@ class RoverFrame(wx.Frame):
 
         def update_state(self, newstate, uncommit=False):
                 #print 'from *%s* to *%s*'%(self.current_state, newstate)
-                if uncommit:
-                        self.saved_states.uncommit(self.current_state)
-                self.saved_states.commit(newstate)
-                self.current_state = newstate
+                if newstate != self.current_state:
+                        if uncommit:
+                                self.saved_states.uncommit(self.current_state)
+                        self.saved_states.commit(newstate)
+                        self.current_state = newstate
 
                                     
         ################ WIDGET EVENTS HANDLER ##########
@@ -453,7 +454,7 @@ class RoverFrame(wx.Frame):
 
         def h_on_key_up(self, evt):
                 keycode = evt.GetKeyCode()
-                #print "key up",keycode
+                print "key up",keycode
                 if keycode in self.dict_keymap['drive']:
                         self.current_drive_keys_down[self.dict_keymap['drive'][keycode]] = False
                         self.update_drive_command()
@@ -461,7 +462,10 @@ class RoverFrame(wx.Frame):
 
         def h_on_key_down(self, evt):
                 keycode = evt.GetKeyCode()
-                #print "key down", keycode
+                print "key down", keycode
+                
+                self.timer_drive_input.Start(TIMER_PERIOD_DRIVE_INPUT_MS)
+
                 ### hack : simply poll the state of the drive keys anytime a key is pressed
                 for keycode in self.dict_keymap['drive']:
                         self.current_drive_keys_down[self.dict_keymap['drive'][keycode]] = wx.GetKeyState(keycode)
@@ -657,13 +661,15 @@ class RoverFrame(wx.Frame):
 
         def activate_drive_controls(self):
                 ### enable the capture of keyboard:
+                print "activate controls"
                 self.Bind(wx.EVT_CHAR_HOOK, self.h_on_key_down)
                 self.Bind(wx.EVT_KEY_UP, self.h_on_key_up)
                 
         def deactivate_drive_controls(self):
                 self.Bind(wx.EVT_CHAR_HOOK, None)
                 self.Bind(wx.EVT_KEY_UP, None)
-
+                self.timer_drive_input.Stop()
+                
         def drive_keys_to_direction(self, dictkeys):
                 lhs,rhs="",""
                 if dictkeys["stop"] == True:
@@ -722,6 +728,7 @@ class RoverFrame(wx.Frame):
         def cleanup(self):
 
                 self.timer_fetch_rx.Stop()
+                self.timer_drive_input.Stop()
                 
                 #### process cleanup ####
                 
