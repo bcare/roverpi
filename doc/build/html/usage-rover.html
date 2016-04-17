@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="rovepri-doc 0.2.1 documentation" href="index.html" />
-    <link rel="next" title="Usage : On the Rover" href="usage-client.html" />
+    <link rel="next" title="Usage : On the Client" href="usage-client.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="usage-client.html" title="Usage : On the Rover"
+          <a href="usage-client.html" title="Usage : On the Client"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="installation.html" title="Installation"
@@ -52,14 +52,241 @@
             
   <div class="section" id="usage-on-the-rover">
 <h1>Usage : On the Rover<a class="headerlink" href="#usage-on-the-rover" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="preambule">
-<h2>Preambule<a class="headerlink" href="#preambule" title="Permalink to this headline">¶</a></h2>
-</div>
+<p>This page explains how to configure and use roverpi&#8217;s rover-side code.</p>
 <div class="section" id="hardware-and-gpio">
 <h2>Hardware and GPIO<a class="headerlink" href="#hardware-and-gpio" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="drive-pins">
+<h3>Drive pins<a class="headerlink" href="#drive-pins" title="Permalink to this headline">¶</a></h3>
+<p>roverpi was originally developped for a 4WD chassis with tracks (a &#8220;tank&#8221; with two motors per track), but can be
+made to work with other kinds of drives. The rover-side code can be configured
+so that you define which and how the GPIO pins of the raspberry pi are used.</p>
+<p>The code assumes that each motor of your drive can be controlled using at least two GPIO pins :</p>
+<ul class="simple">
+<li>a &#8220;direction&#8221; pin that sets the direction of rotation (clockwise / counter-clockwise) with</li>
+</ul>
+<blockquote>
+<div>a digital output (0 or 1)</div></blockquote>
+<ul class="simple">
+<li>a &#8220;power&#8221; pin that sets the power/speed of rotation with a PWM (<a class="reference external" href="https://en.wikipedia.org/pulse_width_modulation">Pulse-width Modulation</a>) output.</li>
+</ul>
+<p>roverpi uses Software PWM thanks to <em>RPi.GPIO</em> and <em>wiringpi</em> excellent libraries, so you can use any GPIO pin of the raspberry pi as a power pin.</p>
+<p>In its current version, <strong>roverpi assumes that left-side motors share the same power pin, and likewise for right-side motors</strong> . Future versions might release this assumption and offer a more flexible GPIO configuration, don&#8217;t hesitate to contact me if you are interested in this feature.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">I don&#8217;t recommend that you use the power pins to <strong>directly</strong> power the motors !</p>
+</div>
+</div>
+<div class="section" id="video">
+<h3>Video<a class="headerlink" href="#video" title="Permalink to this headline">¶</a></h3>
+<p>The raspberry pi is able to capture video using the Pi Camera Module on the CSI port, or even a standard USB webcam. This can be used to see on the client PC what the rover sees.</p>
+<p>roverpi&#8217;s rover-side code does not offer video streaming capabilities, but the client is able to acces and render a web page with a video stream. Rather than implementing myself a clumsy streaming server, I chose to use eLinux&#8217;s excellent <a class="reference external" href="http://elinux.org/RPi-Cam-Web-Interface">RPi-WebCam-Interface</a> software on my rover&#8217;s raspberry pi to serve the video stream from the Pi Camera Module on a web page, and point my client software to this page.</p>
+</div>
+</div>
+<div class="section" id="system-settings">
+<h2>System settings<a class="headerlink" href="#system-settings" title="Permalink to this headline">¶</a></h2>
+<p>roverpi does not require any special permissions to run, <strong>but the user with which you connect on the raspberry pi and execute the program might not have the permissions to use the GPIO pins</strong>. I personnally recommend that <strong>you don&#8217;t use the default ``pi`` user on the raspberry pi to run roverpi&#8217;s code</strong>, for the sake of security. the <code class="docutils literal"><span class="pre">pi</span></code> user has elevated privileges by default, and you shouldn&#8217;t trust the code I wrote to run with root privileges.</p>
+<p>Make sure that the user you intend to login with to run roverpi on the raspberry pi is in the <code class="docutils literal"><span class="pre">gpio</span></code> UNIX group :</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$&gt; sudo usermod -aG gpio &lt;username&gt;
+</pre></div>
+</div>
+<p>The final step to make GPIO pins available is to export them. This will create files in <code class="docutils literal"><span class="pre">/dev</span></code> that users in the <code class="docutils literal"><span class="pre">gpio</span></code> group can use to write/read the pins.</p>
+<p>There is a bash script shipped with roverpi that will automatically export the GPIO pins you define in a configuration file for you :</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$&gt; bash roverpi/tools/export_required_pins.sh &lt;path_to_configuration_file&gt;
+</pre></div>
+</div>
+<p>This script uses the <code class="docutils literal"><span class="pre">gpio</span></code> command that ships with the package <code class="docutils literal"><span class="pre">wiringpi</span></code>.</p>
 </div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>The rvserver.py script requires a configuration file path as a commandline argument.
+The configuration file is loaded using <code class="docutils literal"><span class="pre">pyblibconfig2</span></code>, so each string value must be double-quoted, and float values must be explicitly defined (e.g. by typing <code class="docutils literal"><span class="pre">0.0</span></code> and not <code class="docutils literal"><span class="pre">0</span></code>).</p>
+<p>You may find a configuration file example <code class="docutils literal"><span class="pre">config_example.txt</span></code> in the <code class="docutils literal"><span class="pre">roverserver/configs</span></code> folder :</p>
+<div class="literal-block-wrapper container" id="config-example-txt">
+<div class="code-block-caption"><span class="caption-text">config_example.txt</span><a class="headerlink" href="#config-example-txt" title="Permalink to this code">¶</a></div>
+<div class="highlight-ini"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<p>### Configuration files are loaded using pylibconfig2
+### Comments are prefixed by #
+### Strings should be double-quoted (&#8220;&#8221;)</p>
+<p>network =
+{</p>
+<blockquote>
+<div><p>### This section is mandatory.</p>
+<p>### Listening address accepting
+### client connections :
+### (e.g. &#8220;127.0.0.1&#8221; for
+### local connections only
+### or 192.168.X.X for LAN connections)
+address = &#8220;192.168.0.10&#8221; ;</p>
+<p>### Listening port :
+port = 63000 ;</p>
+</div></blockquote>
+<p>}</p>
+<p>internals =
+{</p>
+<blockquote>
+<div>### Currently unused but might in future versions,
+### not required.</div></blockquote>
+<p>}</p>
+<p>drive =
+{</p>
+<blockquote>
+<div><p>### define the available speeds presets :
+### (in percent, any value greater than 100
+### will be decreased to 100 automatically)
+### Each value defines the percentage
+### of the PWM duty cycle w.r.t the PWM period
+### that will be used when the speed setting
+### is selected.</p>
+<p>### Default speeds :
+#speeds = (10,20,50,100);</p>
+<p>### Drive vectors :</p>
+<p>vectors =
+{</p>
+<blockquote>
+<div><p>### A drive vector consists of 6 values
+### that determines how the wheels/tracks
+### move when a drive command is sent to the rover.
+### These are optionals, the rover server code
+### includes default values (see below).</p>
+<p>### The expected values are :
+### (PWM_LEFT, PWM_RIGHT, DIR_ForLeft, DIR_ForRight, ###     DIR_RearLeft, DIR_RearRight),
+### meaning :</p>
+<p>### PWM_LEFT :  float between 0.0 and 1.0
+###              Fraction of power applied to the left
+###                      side trains (1.0 being the maximum
+###              defined by the current speed setting selected</p>
+<p>### PWM_RIGHT : float between 0.0 and 1.0
+###              Fraction of power applied to the right
+###                      side trains (1.0 being the maximum
+###              defined by the current speed setting selected</p>
+<p>### DIR_ForLeft : integer 0 or 1
+###                             Output value on the GPIO pin
+###                             that will determine the direction
+###                             of rotation of the forward left
+###                             motor.</p>
+<p>### DIR_ForRight : integer 0 or 1
+###                             Output value on the GPIO pin
+###                             that will determine the direction
+###                             of rotation of the forward right
+###                             motor.</p>
+<p>### DIR_RearLeft : integer 0 or 1
+###                             Output value on the GPIO pin
+###                             that will determine the direction
+###                             of rotation of the forward right
+###                             motor.</p>
+<p>### DIR_RearRight : integer 0 or 1
+###                             Output value on the GPIO pin
+###                             that will determine the direction
+###                             of rotation of the forward right
+###                             motor.</p>
+<p>### These are the defaults,
+### They are set based on the
+### 4WD tracked chassis I used
+### to build my rover.</p>
+</div></blockquote>
+<p>#north = (1.0,1.0,1,1,0,0) ;
+#north_east = (0.8,0.2,1,1,0,0) ;
+#east = (1.0,1.0,1,0,0,1) ;
+#south_east = (0.5,0.2,0,0,1,1) ;
+#south = (1.0,1.0,0,0,1,1) ;
+#south_west = (0.2,0.8,0,0,1,1) ;
+#west = (1.0,1.0,0,1,1,0) ;
+#north_west = (0.2,0.5,1,1,0,0) ;
+#full_stop = (0,0,0,0,0,0) ;</p>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+<p>gpio = {</p>
+<blockquote>
+<div><blockquote>
+<div><p>### GPIO settings determine how the software
+### will transmit orders to the GPIO Pins
+### based on commands received from the client.</p>
+<p>### roverpi uses software PWM to emulate
+### PWM on the raspberry pi&#8217;s non-PWM
+### pins.
+### pwm_freq determines the frequency
+### of the PWM duty cycle
+### Software PWM cannot go faster than
+### 50kHZ, sub-kHz values are usually
+### a good choice.</p>
+<p>#pwm_freq = 500 ; #default PWM frequency in Hz</p>
+<p>### GPIO maps :
+### Here you can define which pins
+### you use on the raspberry pi
+### to control your motors.
+### roverpi uses the BCM numbering scheme.</p>
+<p>### pin that controls the power sent
+### to the left-side motors :
+pin_pwm_left = 20;</p>
+<p>### pin that controls the power sent
+### to the right-side motors :
+pin_pwm_right = 21;</p>
+<p>### pins that control the direction
+### of motors
+pin_direction_left_forward = 6;
+pin_direction_right_forward = 13;
+pin_direction_left_rear = 19 ;
+pin_direction_right_rear = 26;</p>
+<p>### pin that switches on/off
+### headlights :
+### (not implemented yet in software,
+### but available in my own rover)
+pin_headlights = 16 ;</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+</div>
+<div class="section" id="launching-the-roverpi-server">
+<h2>Launching the roverpi server<a class="headerlink" href="#launching-the-roverpi-server" title="Permalink to this headline">¶</a></h2>
+<p>To start listening for a connection, launch the roverpi server :</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$&gt; python roverpi/roverserver/rvserver.py
+</pre></div>
+</div>
+<p>As long as this command is running, you rover will listen for incoming connections, and if the connection is successful, will execute the command received from the clients. You may start the roverpi client on your PC and attempt to connect to the rover.</p>
+</div>
+<div class="section" id="recap-example">
+<h2>Recap example<a class="headerlink" href="#recap-example" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s recap : you downloaded roverpi from github onto the raspberry pi on your rover. You edited a configuration file, specifying the pins you use in your harwdware setup, and the networking parameters.</p>
+<p>The startup procedure is :</p>
+<ol class="arabic">
+<li><p class="first">export the GPIO pins :
+.. code-block:: bash</p>
+<blockquote>
+<div><p>bash roverpi/tools/export_required_pins.sh &lt;path_to_config_file&gt;</p>
+</div></blockquote>
+</li>
+<li><p class="first">Launch the server that will receive commands :
+.. code-block:: bash</p>
+<blockquote>
+<div><p>python roverpi/roverserver/rvserver.py &lt;path_to_config_file&gt;</p>
+</div></blockquote>
+</li>
+<li><p class="first">On the PC you&#8217;ll use to control the rover, start the roverpi client</p>
+</li>
+<li><p class="first">When you are done, terminate the python command running the server with Ctrl-C and shut the raspberry pi down.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="securing-the-connection-to-the-rover-with-ssh">
+<h2>Securing the connection to the rover with SSH<a class="headerlink" href="#securing-the-connection-to-the-rover-with-ssh" title="Permalink to this headline">¶</a></h2>
+<p>roverpi does not include secure networking features such as SSH or TLS. However it is possible to easily encrypt your connection to the rover (remote commands and video) using SSH port forwarding. You may configure the rover-side program to listen only on local connections by setting :</p>
+<div class="highlight-ini"><div class="highlight"><pre><span></span><span class="na">network</span> <span class="o">=</span> <span class="s">{</span>
+<span class="s">                        address = &quot;127.0.0.1&quot; ;</span>
+<span class="s">                        port = 63000 ;</span>
+<span class="s">                  }</span>
+</pre></div>
+</div>
+<p>Then, on your client PC, you may use SSH to forward the port that listens for connections on the rover to another local port on your client PC. Let&#8217;s say your rover listens for connections locally on port 63000 and you want to forward this port to your client PC&#8217;s local port 64000. Open a terminal and launch the command :</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$&gt; ssh -N -L 64000:localhost:63000 user@&lt;rover IP&gt;
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">-N</span></code> means &#8220;don&#8217;t run any command, just conect&#8221; and the &#8220;-L&#8221; enables local port forwarding. <code class="docutils literal"><span class="pre">user&#64;&lt;rover</span> <span class="pre">IP&gt;</span></code> is what you&#8217;ll typically use to connecto to your rover&#8217;s raspberry pi with SSH.</p>
+<p>As long as this command is running (you may interrupt it with Ctrl-C), all data sent to your client PC&#8217;s port 64000 will be securely forwarded to your rover&#8217;s port 63000 through a SSH tunnel. Connections from other hosts will be refused as the rover only &#8220;listens to itself&#8221; anyway.</p>
+<p>If you also have set up a web page with the video stream from your rover that only listens for local connections, you may use the same technique to securely connect to this webpage through SSH. Make sure to use differents ports than the ports you set for roverpi&#8217;s rover-side program.</p>
 </div>
 </div>
 
@@ -72,9 +299,16 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Usage : On the Rover</a><ul>
-<li><a class="reference internal" href="#preambule">Preambule</a></li>
-<li><a class="reference internal" href="#hardware-and-gpio">Hardware and GPIO</a></li>
+<li><a class="reference internal" href="#hardware-and-gpio">Hardware and GPIO</a><ul>
+<li><a class="reference internal" href="#drive-pins">Drive pins</a></li>
+<li><a class="reference internal" href="#video">Video</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#system-settings">System settings</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#launching-the-roverpi-server">Launching the roverpi server</a></li>
+<li><a class="reference internal" href="#recap-example">Recap example</a></li>
+<li><a class="reference internal" href="#securing-the-connection-to-the-rover-with-ssh">Securing the connection to the rover with SSH</a></li>
 </ul>
 </li>
 </ul>
@@ -84,7 +318,7 @@
                         title="previous chapter">Installation</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="usage-client.html"
-                        title="next chapter">Usage : On the Rover</a></p>
+                        title="next chapter">Usage : On the Client</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -113,7 +347,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="usage-client.html" title="Usage : On the Rover"
+          <a href="usage-client.html" title="Usage : On the Client"
              >next</a> |</li>
         <li class="right" >
           <a href="installation.html" title="Installation"
