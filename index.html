@@ -1,1 +1,180 @@
-Roverpi project page
+<!DOCTYPE html>
+<html lang="fr">
+
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="Bertrand Caré">
+
+	<title>roverpi project page - Software for raspberry pi powered land drones</title>
+
+	<!-- Bootstrap JS -->
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="js/jquery-2.2.3.min.js"></script>
+	<script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+	<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Bootstrap Theme CSS -->
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+
+	<!-- gridlex grid system -->
+	<link href="css/gridlex.min.css" rel="stylesheet">
+
+	<!-- gridlex grid system -->
+	<link href="css/flatbuttons.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link href="css/custom.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+	<!--
+		### Header splash title
+	-->
+
+	<div class="mainheader page-header text-center" id="mainheader">
+		<h1 class="maintitle">roverpi</h1>
+		<h2 class="maintitle">python software for remotely controlling a raspberry pi powered rover</h2>
+	</div>
+
+	<nav class="navbar navbar-fixed-top custom-navbar">
+		<ul class="nav navbar-nav">
+			<li class="active"><a class="custom-navbar" href="#">Home</a></li>
+			<li><a class="custom-navbar" href="#downloads">Downloads</a></li>
+			<li><a class="custom-navbar" href="#link-doc">Doc</a></li>
+			<li><a class="custom-navbar" href="#hardware">Hardware</a></li>
+		</ul>
+		</div>
+	</nav>
+
+
+
+	<!-- Intro -->
+	<div class="container">
+		<div class="row row-centered">
+			 <div class="col-xs-6 col-centered">
+
+
+	<p id="intro"><strong>roverpi</strong> is a set of python scripts that allows
+	one to send commands over the network to a rapsberry pi-powered drone using a
+	GUI Client, like you would control a RC car using the keyboard. The client is
+	also able to display a video stream from a camera set on the rover. Planned
+	features include sending text-to-speech commands and playing adio files from
+	the rover. It was originally developped for a 4WD chassis with tracks (a
+	"tank") but could probably be adapted to oher raspberry pi-GPIO based projects.
+	Code for both the rover and the client are freely available for anyone to use
+	and/or modify.</p>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Downloads -->
+	<div class="container">
+
+		<div class="row text-center">
+			<div id="downloads" class="col-xs-6 col-centered">
+				<h3 id="downloads">Downloads<h3>
+				</div>
+		</div>
+
+		<div class="row text-center">
+			<div class="col-xs-6 col-centered">
+				<h4>Client+Server sources :</br>
+				 (python, for GNU/Linux and Windows)</h4>
+			</div>
+
+			<div class="row text-center">
+				<div class="col-xs-6 col-centered">
+					<button class="flat-butt">
+						<a class="flat-butt-link" href="">roverpi-0.2.1.zip</a>
+				</button>
+				</div>
+			</div>
+
+			<div class="row text-center">
+				<div class="col-xs-6 col-centered">
+					<h4>Client standalone executables :</br>
+					(no installation required)</h4>
+				</div>
+			</div>
+
+		<div class="row text-center">
+			<div class="col-xs-6 col-centered">
+					<button class="flat-butt">
+						<a class="flat-butt-link" href="">rvclient-linux-standalone-v0.2.1-20160414.run</a>
+					</button>
+			</div>
+		</div>
+
+		<div class="row text-center">
+			<div class="col-xs-6 col-centered">
+				<button class="flat-butt">
+					<a class="flat-butt-link" href="">rvclient-win32-standalone-v0.2.1-20160414.exe</a>
+				</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="container">
+	<div class="row text-center">
+		<div class="col-xs-6 col-centered">
+			<h4 class="downloads">Github repository</h4>
+		</div>
+	</div>
+
+	<div class="row text-center">
+		<!-- <div class="grid-center"> -->
+		<div class="col-xs-9 col-centered">
+			<div class="grid-center">
+
+				<div class="col-2">
+					<!-- Place this tag where you want the button to render. -->
+					<a aria-label="bcare/roverpi on GitHub" data-style="mega" href="https://github.com/bcare/roverpi" class="github-button">Repository</a>
+				</div>
+
+				<div class="col-2">
+				<!-- Place this tag where you want the button to render. -->
+					<a aria-label="Watch bcare/roverpi on GitHub" data-icon="octicon-eye" data-count-aria-label="# watchers on GitHub" data-count-api="/repos/bcare/roverpi#subscribers_count" data-count-href="/bcare/roverpi/watchers" data-style="mega" href="https://github.com/bcare/roverpi" class="github-button">Watch</a>
+				</div>
+
+				<div class="col-2">
+					<a aria-label="Download bcare/roverpi on GitHub" data-style="mega" data-icon="octicon-cloud-download" href="https://github.com/bcare/roverpi/archive/master.zip" class="github-button">Download</a>
+					</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- Docs -->
+<div class="container">
+	<div class="row text-center">
+			<div id="documentation" class="col-xs-6 col-centered">
+					<h3>Documentation :</h3></br>
+					<a id="link-doc" href="https://bcare.github.io/roverpi/doc" target="_blank">bcare.github.io/roverpi/doc</a>
+			</div>
+		</div>
+</div>
+
+<div class="footer">
+</div>
+
+<!-- required for github buttons just before the /body tag. -->
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+/* color palette */
+
+
+
+/*
+  thought provoking http://www.colourlovers.com/palette/694737/Thought_Provoking
+  th-yellow : #ECD078
+  th-brick : #D95B43
+  th-red : #C02942
+  th-purple : #542437
+  th-blue : #53777A
+*/
+
+h1 {
+  margin: 0;
+}
+
+p {
+  padding-top: 50px;
+  font-size:14px;
+}
+
+p#intro {
+  text-align : justify;
+}
+
+strong {
+  font-weight: bold;
+  color:  #C02942;
+}
+
+
+.col-centered {
+    float:none;
+
+    /* inline-block space fix */
+    margin: 0 auto;
+}
+
+.footer {
+  background :  #C02942;
+  min-height: 300px;
+  width: 100vw;
+  padding : 0px;
+  margin: 0px;
+}
+
+#documentation {
+  padding-bottom : 100px;
+}
+
+#mainheader {
+  color: #fff;
+  background-color: #D95B43 ;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+#maintitle {
+  margin: 0px;
+  padding : 0px;
+}
+
+.custom-navbar {
+  float: none;
+  background: #C02942;
+  color: #fff;
+}
+
+.custom-navbar:hover  {
+  color:  #C02942;
+}
+
+
+
+a.custom-navbar {
+  color: #fff;
+}
+
+a.custom-navbar:active {
+  color: #C02942;
+}
+
+a.custom-navbar:focus {
+  color: #C02942;
+}
+
+
+.flat-butt-link {
+  color: #fff;
+}
+
+.flat-butt-link:hover {
+  color:  #D95B43;
+  background: #ECD078;
+}
+
+
+a#link-doc {
+  font-size: 16px;
+}
