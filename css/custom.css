@@ -11,16 +11,26 @@
   th-blue : #53777A
 */
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: 'Open Sans' ,sans-serif ;
+  margin-bottom : 0px;
+}
+
 h1 {
   margin: 0;
 }
 
-p {
-  padding-top: 50px;
-  font-size:14px;
-}
 
 p#intro {
+  padding-top: 50px;
+  font-size:14px;
+  margin-bottom: 20px:
   text-align : justify;
 }
 
@@ -29,6 +39,13 @@ strong {
   color:  #C02942;
 }
 
+img#rovergif-left {
+    float : right;
+}
+
+img#rovergif-right {
+  float: left;
+}
 
 .col-centered {
     float:none;
@@ -97,6 +114,10 @@ a.custom-navbar:focus {
   background: #ECD078;
 }
 
+.link-custom {
+  font-size: 16px;
+  text-decoration : underline;
+}
 
 a#link-doc {
   font-size: 16px;
