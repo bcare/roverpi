@@ -104,7 +104,9 @@ a.custom-navbar:focus {
   color: #C02942;
 }
 
-
+.flat-butt {
+  width: 300px; 
+}
 .flat-butt-link {
   color: #fff;
 }
@@ -113,6 +115,12 @@ a.custom-navbar:focus {
   color:  #D95B43;
   background: #ECD078;
 }
+
+
+a.flat-butt-link:active a.flat-butt-link:focus a.flat-butt-link:visited {
+  color:  #fff !important;
+}
+
 
 .link-custom {
   font-size: 16px;
